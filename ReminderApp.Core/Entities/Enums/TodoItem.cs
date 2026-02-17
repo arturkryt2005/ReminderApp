@@ -1,7 +1,11 @@
 ﻿namespace ReminderApp.Core.Entities.Enums
 {
-    public enum TodoItem : BaseEntity
+    /// <summary>
+    /// Енамка для todo
+    /// </summary>
+    public enum TodoItem 
     {
-        public string Name {  get; set; }
+        Pending,
+        Completed
     }
 }

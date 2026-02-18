@@ -3,7 +3,7 @@
     /// <summary>
     /// Енамка для todo
     /// </summary>
-    public enum TodoItem 
+    public enum TodoStatus
     {
         Pending,
         Completed

@@ -5,7 +5,7 @@ namespace ReminderApp.Core.Entities.Models
     /// <summary>
     /// Сущность напоминания
     /// </summary>
-    public class Reminder
+    public class Reminder : BaseEntity
     {
         public string Title { get; set; } = string.Empty;
 

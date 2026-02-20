@@ -8,7 +8,7 @@ namespace ReminderApp.Core.Repositories.Interfaces
     /// <typeparam name="T"></typeparam>
     public interface IRepository<T> where T : BaseEntity
     {
-        Task<T> GetAll();
+        Task<IEnumerable<T>> GetAll();
         Task<T> GetByIdAsync(int id);
         Task<T> CreateAsync(T entity);
         Task<T> UpdateAsync(T entity);

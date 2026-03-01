@@ -1,33 +1,58 @@
-﻿using ReminderApp.Core.Entities.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ReminderApp.Core.Entities.Models;
 using ReminderApp.Core.Repositories.Interfaces;
+using ReminderApp.Infrastructure.Data;
 
 namespace ReminderApp.Infrastructure.Repositories.Implementations
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        Task<IEnumerable<T>> IRepository<T>.GetAll()
+        private readonly AppDbContext _context;
+        private readonly DbSet<T> _dbSet;
+
+        public Repository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _dbSet = context.Set<T>();
         }
 
-        public Task<T> CreateAsync(T entity)
+        async Task<IEnumerable<T>> IRepository<T>.GetAll()
         {
-            throw new NotImplementedException();
+            return await _dbSet.ToListAsync();
         }
 
-        public Task DeleteAsync(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
-            throw new NotImplementedException();
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task DeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<T> UpdateAsync(T entity)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _dbSet.FindAsync(id);
+
+            if (entity == null)
+            {
+                throw new KeyNotFoundException($"Сущность '{typeof(T).Name}' с Id={id} не найдена в базе данных.");
+            }
+
+            return entity;
+        }
+
+        public async Task<T> UpdateAsync(T entity)
+        {
+            _dbSet.Update(entity);
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
     }
 }

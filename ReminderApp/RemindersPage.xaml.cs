@@ -24,5 +24,13 @@ namespace ReminderApp
         {
             InitializeComponent();
         }
+
+        private void AddRemindButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addWindow = new AddRemindWindow();
+            addWindow.Owner = Window.GetWindow(this); // чтобы окно было модальным к главному
+            addWindow.ShowDialog();
+            // после закрытия можно обновить список задач
+        }
     }
 }

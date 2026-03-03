@@ -13,10 +13,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!-- Заголовок -->
-        <TextBlock Grid.Row="0" Text="Напоминания" FontSize="28" FontWeight="Light" Margin="0,0,0,20"/>
-
+        <!-- Заголовок и кнопка добавления -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Напоминания" FontSize="28" FontWeight="Light"/>
+            <Button Grid.Column="2" Name="AddRemindButton" Content="Добавить напоминание" Background="#2564CF" Foreground="White" Padding="15,8" 
+            BorderThickness="0" Click="AddRemindButton_Click"/>
+        </Grid>
+        
         <!-- Список задач с напоминаниями -->
         <ListBox x:Name="RemindersListBox" Grid.Row="1" Background="Transparent" BorderThickness="0">
             <ListBox.ItemTemplate>

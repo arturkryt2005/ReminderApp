@@ -5,8 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReminderApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#F3F3F3">
+    <Window.Resources>
+        <!-- Общие стили для кнопок и списков (можно вынести в App.xaml) -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E5E5E5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E5E5E5"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#C3E0FF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая навигационная панель -->
+        <Border Grid.Column="0" Background="White" Padding="10">
+            <StackPanel>
+                <TextBlock Text="Мой список" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,15"/>
+                <ListBox x:Name="NavigationListBox" Background="Transparent" BorderThickness="0"
+                         SelectionChanged="NavigationListBox_SelectionChanged">
+                    <ListBoxItem Tag="TodayPage">Мой день</ListBoxItem>
+                    <ListBoxItem Tag="ImportantPage">Важно</ListBoxItem>
+                    <ListBoxItem Tag="PlannedPage">Запланировано</ListBoxItem>
+                    <ListBoxItem Tag="AllTasksPage" IsSelected="True">Все задачи</ListBoxItem>
+                    <ListBoxItem Tag="CompletedPage">Завершённые</ListBoxItem>
+                    <ListBoxItem Tag="RemindersPage">Напоминания</ListBoxItem>
+                </ListBox>
+                <Button Content="+ Новый список" Margin="0,20,0,0" HorizontalAlignment="Left"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Правая область с Frame для страниц -->
+        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

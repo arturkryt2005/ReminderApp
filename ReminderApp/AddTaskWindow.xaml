@@ -1,0 +1,34 @@
+﻿<Window x:Class="ReminderApp.AddTaskWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReminderApp"
+        mc:Ignorable="d"
+        Title="AddTaskWindow" Height="300" Width="400"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="White" WindowStyle="ToolWindow">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Название задачи" FontSize="14" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="1" Name="TaskTitleTextBox" Height="30" Padding="5" FontSize="14"/>
+
+        <TextBlock Grid.Row="2" Text="Дата (дд.мм.гггг)" FontSize="14" Margin="0,15,0,5"/>
+        <TextBox Grid.Row="3" Name="TaskDateTextBox" Height="30" Padding="5" FontSize="14" Text="10.04.2025"/>
+
+        <TextBlock Grid.Row="4" Text="Время (чч:мм)" FontSize="14" Margin="0,15,0,5"/>
+        <TextBox Grid.Row="5" Name="TaskTimeTextBox" Height="30" Padding="5" FontSize="14" Text="12:00"/>
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,0,0">
+            <Button Content="Отмена" Width="80" Height="35" Margin="0,0,10,0"/>
+            <Button Content="Сохранить" Width="80" Height="35" Background="#2564CF" Foreground="White"/>
+        </StackPanel>
+    </Grid>
+</Window>

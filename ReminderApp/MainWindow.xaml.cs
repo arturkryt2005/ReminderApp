@@ -19,6 +19,36 @@ namespace ReminderApp
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new TodayPage());
+        }
+
+        private void NavigationListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Защита от вызова до инициализации Frame
+            if (MainFrame == null) return;
+
+            if (NavigationListBox.SelectedItem is ListBoxItem item && item.Tag is string pageName)
+            {
+                // Избегаем повторной навигации на ту же страницу
+                var currentPage = MainFrame.Content as Page;
+                if (currentPage != null && currentPage.Title == pageName) return;
+
+                switch (pageName)
+                {
+                    case "TodayPage":
+                        MainFrame.Navigate(new TodayPage());
+                        break;
+                    case "AllTasksPage":
+                        MainFrame.Navigate(new AllTasksPage());
+                        break;
+                    case "RemindersPage":
+                        MainFrame.Navigate(new RemindersPage());
+                        break;
+                    default:
+                        MainFrame.Navigate(new TodayPage());
+                        break;
+                }
+            }
         }
     }
 }

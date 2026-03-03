@@ -5,30 +5,122 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReminderApp"
         mc:Ignorable="d"
-        Title="AddTaskWindow" Height="300" Width="400"
+        Title="Новая задача" Height="420" Width="450"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
-        Background="White" WindowStyle="ToolWindow">
-    <Grid Margin="20">
+        Background="White" WindowStyle="ToolWindow"
+        FontSize="14"
+        Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#2564CF"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#2564CF"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#2564CF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#2564CF"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#2564CF"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="25">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Название задачи" FontSize="14" Margin="0,0,0,5"/>
-        <TextBox Grid.Row="1" Name="TaskTitleTextBox" Height="30" Padding="5" FontSize="14"/>
+        <!-- Название задачи -->
+        <TextBlock Grid.Row="0" Text="Название задачи" 
+                   FontSize="16" 
+                   Margin="0,0,0,8" Foreground="#333333"/>
+        <TextBox Grid.Row="1" Name="TaskTitleTextBox" FontWeight="Bold"/>
 
-        <TextBlock Grid.Row="2" Text="Дата (дд.мм.гггг)" FontSize="14" Margin="0,15,0,5"/>
-        <TextBox Grid.Row="3" Name="TaskDateTextBox" Height="30" Padding="5" FontSize="14" Text="10.04.2025"/>
+        <!-- Дата -->
+        <TextBlock Grid.Row="2" Text="Дата" 
+                   FontSize="16" 
+                   Margin="0,20,0,8" Foreground="#333333"/>
+        <DatePicker Grid.Row="3" Name="TaskDateDatePicker" 
+                    SelectedDateFormat="Short"
+                    FirstDayOfWeek="Monday"
+                    Loaded="TaskDateDatePicker_Loaded"/>
 
-        <TextBlock Grid.Row="4" Text="Время (чч:мм)" FontSize="14" Margin="0,15,0,5"/>
-        <TextBox Grid.Row="5" Name="TaskTimeTextBox" Height="30" Padding="5" FontSize="14" Text="12:00"/>
+        <!-- Время (выпадающий список + ручной ввод) -->
+        <TextBlock Grid.Row="4" Text="Время (чч:мм)" 
+                   FontSize="16" 
+                   Margin="0,20,0,8" Foreground="#333333"/>
+        <ComboBox Grid.Row="5" Name="TaskTimeComboBox" 
+                  Height="40"
+                  IsEditable="True"
+                  Text="12:00"
+                  Loaded="TaskTimeComboBox_Loaded"/>
 
-        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,0,0">
-            <Button Content="Отмена" Width="80" Height="35" Margin="0,0,10,0"/>
-            <Button Content="Сохранить" Width="80" Height="35" Background="#2564CF" Foreground="White"/>
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="6" Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" Margin="0,20,0,0">
+            <Button Content="Отмена" Width="100" 
+                    Background="#F5F5F5" Foreground="#333333"
+                    Margin="0,0,15,0" Click="CancelButton_Click"/>
+            <Button Content="Сохранить" Width="120" 
+                    Background="#2564CF" Foreground="White"
+                    Click="SaveButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
